@@ -7,11 +7,13 @@ from PyQt5.QtGui import QColor
 
 
 class Form(QMainWindow):
-
+    """
+    Форма для задания настроек редактора
+    """
     def __init__(self):
         super().__init__()
         self.resize(100, 100)
-
+        # Высота
         self.lbl_height = QLabel("Enter height", self)
         self.lbl_height.move(20, 20)
         self.lbl_height.resize(200, 50)
@@ -20,7 +22,7 @@ class Form(QMainWindow):
         self.height_box.resize(200, 70)
         self.height_box.setMinimum(200)
         self.height_box.setMaximum(1300)
-
+        # Ширина
         self.lbl_width = QLabel("Enter width", self)
         self.lbl_width.move(20, 140)
         self.lbl_width.resize(200, 70)
@@ -29,17 +31,17 @@ class Form(QMainWindow):
         self.width_box.resize(200, 70)
         self.width_box.setMinimum(200)
         self.width_box.setMaximum(3000)
-
+        # Цвет
         self.button = QPushButton('COLOR', self)
         self.button.move(20, 400)
         self.button.resize(200, 70)
         self.button.clicked.connect(self.color_picker)
-
+        # Кнопка старта
         self.button = QPushButton('START', self)
         self.button.move(20, 500)
         self.button.resize(200, 70)
         self.button.clicked.connect(self.on_click)
-
+        # Имя файла
         self.lbl_name = QLabel("Enter file's name", self)
         self.lbl_name.move(20, 250)
         self.lbl_name.resize(200, 70)
@@ -50,14 +52,20 @@ class Form(QMainWindow):
         self.color = QColor('white')
 
     def color_picker(self):
+        """
+        Изменение цвета и сохранение в self.color
+        """
         self.color = QColorDialog.getColor()
 
     def on_click(self):
-
+        """
+        Нажатие кнопки START
+        """
         self.width = int(self.width_box.text())
         self.height = int(self.height_box.text())
         self.name = self.name_box.text()
         self.close()
+        # Закртытие первой формы и открытие окна редактора с передачей всех собранных параметров
         self.game = Game(self.width, self.height, self.color, self.name)
         self.setCentralWidget(self.game)
         self.game.setGeometry(0, 0, 2000, 1500)
@@ -65,7 +73,9 @@ class Form(QMainWindow):
 
 
 class Game(QMainWindow):
-
+    """
+    Инициализация окна редактора Painter
+    """
     def __init__(self, w, h, col, name):
         super().__init__()
         self.painter = Painter(w, h, col, name)
@@ -74,16 +84,18 @@ class Game(QMainWindow):
 
 
 class Start(QMainWindow):
-
+    """
+    Инициализация формы настроек редактора
+    """
     def __init__(self):
         super().__init__()
         self.form = Form()
-
         self.form.setGeometry(500, 500, 500, 800)
         self.form.show()
 
 
 if __name__ == '__main__':
+    # Точка входа
     app = QApplication([])
     start = Start()
     sys.exit(app.exec_())
