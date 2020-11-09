@@ -11,7 +11,7 @@ from Figures.Circle import Circle
 from Figures.Combiner import Combiner
 from Figures.Hand import Hand
 from Figures.Line import Line
-from Figures.Object import Object
+from Figures.Group import Group
 from Figures.Rectangle import Rectangle
 
 
@@ -167,7 +167,7 @@ class Painter(QMainWindow):
             self.instrument = 'Line'
         elif isinstance(o, Hand):
             self.instrument = 'Hand'
-        elif isinstance(o, Object):
+        elif isinstance(o, Group):
             self.instrument = 'Object'
 
     def edit(self):
@@ -520,7 +520,7 @@ class Painter(QMainWindow):
         for e in self.objects:
             if e.selected:
                 e.deselect()
-                if e is Object and obj is not None:
+                if e is Group and obj is not None:
                     obj = e
                 else:
                     li.append(e)

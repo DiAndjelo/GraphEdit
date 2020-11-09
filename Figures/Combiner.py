@@ -1,4 +1,4 @@
-from Figures.Object import Object
+from Figures.Object import Group
 
 
 class Combiner:
@@ -8,7 +8,7 @@ class Combiner:
     @staticmethod
     def combine(figures, obj=None):
         if obj is None:
-            obj = Object()
+            obj = Group()
         for e in figures:
             obj.add_figure(e)
         return obj

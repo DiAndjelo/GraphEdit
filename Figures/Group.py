@@ -4,7 +4,7 @@ from PyQt5.QtGui import QPen, QColor
 from Figures.Figure import Figure
 
 
-class Object(Figure):
+class Group(Figure):
     """
     Класс объекта, который отвечает за combined обьекты
     """
@@ -125,7 +125,7 @@ class Object(Figure):
             e.deselect()
 
     def add_figure(self, figure):
-        if figure is Object:
+        if figure is Group:
             for e in figure.figures:
                 self.figures.append(e)
         else:
