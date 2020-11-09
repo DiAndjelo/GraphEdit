@@ -1,12 +1,11 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5.QtWidgets import QLineEdit, QPushButton, QLabel, QSpinBox, QComboBox
-from PyQt5.QtWidgets import QColorDialog
-import sys
-from Painter import Painter
 from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QLineEdit, QPushButton, QLabel, QSpinBox
+from PyQt5.QtWidgets import QColorDialog
+from PyQt5.QtWidgets import QMainWindow
+from Editor.GraphObject import GraphObject
 
 
-class Form(QMainWindow):
+class SettingsForm(QMainWindow):
     """
     Форма для задания настроек редактора
     """
@@ -63,41 +62,24 @@ class Form(QMainWindow):
         """
         Нажатие кнопки START
         """
-        self.width = int(self.width_box.text())
-        self.height = int(self.height_box.text())
-        self.name = self.name_box.text()
         self.close()
         # Закртытие первой формы и открытие окна редактора с передачей всех собранных параметров
-        self.game = Game(self.width, self.height, self.color, self.name)
-        self.setCentralWidget(self.game)
-        self.game.setGeometry(100, 100, 1400, 700)
-        self.game.show()
+        self.release_graph_object = ReleaseGraphObject(width=int(self.width_box.text()),
+                                                       height=int(self.height_box.text()),
+                                                       color=self.color,
+                                                       file_name=self.name_box.text())
+        self.setCentralWidget(self.release_graph_object)
+        self.release_graph_object.setGeometry(100, 100, 1400, 700)
+        self.release_graph_object.show()
 
 
-class Game(QMainWindow):
+class ReleaseGraphObject(QMainWindow):
     """
     Инициализация окна редактора Painter
     """
-    def __init__(self, w, h, col, name):
+    def __init__(self, width, height, color, file_name):
         super().__init__()
-        self.painter = Painter(w, h, col, name)
+        self.painter = GraphObject(width, height, color, file_name)
         self.painter.setGeometry(300, 100, 1000, 700)
         self.painter.show()
 
-
-class Start(QMainWindow):
-    """
-    Инициализация формы настроек редактора
-    """
-    def __init__(self):
-        super().__init__()
-        self.form = Form()
-        self.form.setGeometry(600, 200, 250, 600)
-        self.form.show()
-
-
-if __name__ == '__main__':
-    # Точка входа
-    app = QApplication([])
-    start = Start()
-    sys.exit(app.exec_())

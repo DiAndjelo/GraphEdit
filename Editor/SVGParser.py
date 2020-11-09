@@ -1,5 +1,10 @@
-from Figures import *
 from xml.etree import ElementTree as ET
+
+from Figures.Circle import Circle
+from Figures.Hand import Hand
+from Figures.Line import Line
+from Figures.Rectangle import Rectangle
+from Figures.Group import Group
 
 
 class SVGParser:
@@ -40,7 +45,7 @@ class SVGParser:
                                   x2=str(l.x2-40), y2=str(l.y2-150),
                                   stroke="rgb" + str(l.color.getRgb()), width=str(l.thick))
                 ET.SubElement(doc, '/g')
-            elif isinstance(o, Object):
+            elif isinstance(o, Group):
                 ET.SubElement(doc, 'g')
                 self.parse2svg(o.figures, doc)
                 ET.SubElement(doc, '/g')

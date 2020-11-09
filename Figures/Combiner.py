@@ -1,4 +1,4 @@
-from Figures.Object import Group
+from Figures.Group import Group
 
 
 class Combiner:
