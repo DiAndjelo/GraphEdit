@@ -1,12 +1,18 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QPushButton, QLabel, QSpinBox
-from PyQt5.QtWidgets import QMainWindow, QComboBox, QHBoxLayout, QWidget, QColorDialog, \
-    QDialog, QVBoxLayout
-from PyQt5.QtGui import QPainter, QColor, QPen, \
-    QLinearGradient, QRadialGradient
-from Figures import Line, Hand, Rectangle, Circle, Combiner, Object
 from copy import deepcopy
 from math import sqrt
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter, QColor, QLinearGradient
+from PyQt5.QtWidgets import QMainWindow, QComboBox, QWidget, QColorDialog, \
+    QDialog, QVBoxLayout
+from PyQt5.QtWidgets import QPushButton, QLabel, QSpinBox
+
+from Figures.Circle import Circle
+from Figures.Combiner import Combiner
+from Figures.Hand import Hand
+from Figures.Line import Line
+from Figures.Object import Object
+from Figures.Rectangle import Rectangle
 
 
 class Painter(QMainWindow):
