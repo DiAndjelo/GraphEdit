@@ -54,7 +54,7 @@ class Painter(QMainWindow):
         self.gr_y1 = None
         self.gr_y2 = None
         # ToDo: Цвет линии, цвет заполнения?
-        self.line_color = QColor('blue')
+        self.line_color = QColor('red')
         self.fill_color = None
 
     def make_forms(self):
@@ -62,60 +62,66 @@ class Painter(QMainWindow):
         Создание кнопочек
         """
         # Комбобокс с инструментами
+        self.instruments_lbl = QLabel('Instruments', self)
+        self.instruments_lbl.move(10, 20)
+        self.instruments_lbl.resize(100, 35)
         self.instruments = QComboBox(self)
         self.instruments.addItems(["Line", "Hand", "Rectangle", "Circle", "Select"])
         self.instruments.move(10, 50)
-        self.instruments.resize(200, 70)
+        self.instruments.resize(100, 35)
         self.instruments.currentIndexChanged.connect(self.instrumentChanged)
         # Кнопка изменения цвета
-        self.color_button = QPushButton('COLOR', self)
-        self.color_button.move(220, 50)
-        self.color_button.resize(150, 70)
+        self.color_button = QPushButton('Color', self)
+        self.color_button.move(120, 50)
+        self.color_button.resize(100, 35)
         self.color_button.clicked.connect(self.color_picker)
+        self.color_lbl = QLabel('Color', self)
+        self.color_lbl.move(230, 20)
+        self.color_lbl.resize(100, 35)
         # Кнопка изменения ширины
         self.thick_button = QSpinBox(self)
-        self.thick_button.move(530, 50)
-        self.thick_button.resize(100, 70)
+        self.thick_button.move(340, 50)
+        self.thick_button.resize(100, 35)
         self.thick_button.setMinimum(2)
         self.thick_button.setMaximum(60)
         self.thick_button.valueChanged.connect(self.spinboxChanged)
         # Лейбл с показом текущей ширины
         self.thick_lbl = QLabel('Thickness', self)
-        self.thick_lbl.move(530, -10)
-        self.thick_lbl.resize(120, 70)
+        self.thick_lbl.move(340, 20)
+        self.thick_lbl.resize(100, 35)
         # Как я понял - кнопка комбинирования обьектов
-        self.combine_button = QPushButton('COMBINE', self)
-        self.combine_button.move(640, 50)
-        self.combine_button.resize(150, 70)
+        self.combine_button = QPushButton('Combine', self)
+        self.combine_button.move(780, 50)
+        self.combine_button.resize(100, 35)
         self.combine_button.clicked.connect(self.combine)
         self.combine_button.hide()
         # Кнопка удаления обьекта
-        self.delete_button = QPushButton('DELETE', self)
-        self.delete_button.move(800, 50)
-        self.delete_button.resize(100, 70)
+        self.delete_button = QPushButton('Delete', self)
+        self.delete_button.move(670, 50)
+        self.delete_button.resize(100, 35)
         self.delete_button.clicked.connect(self.delete)
         self.delete_button.hide()
         # Кнопка изменения цвета
-        self.change_color_button = QPushButton('COLOR', self)
-        self.change_color_button.move(220, 50)
-        self.change_color_button.resize(150, 70)
+        self.change_color_button = QPushButton('Color', self)
+        self.change_color_button.move(120, 50)
+        self.change_color_button.resize(100, 35)
         self.change_color_button.clicked.connect(self.change_color)
         self.change_color_button.hide()
         # Кнопка изменения бэкграунда(вызывается первоначальная форма)
-        self.background_button = QPushButton('BACKGROUND', self)
-        self.background_button.move(1000, 50)
-        self.background_button.resize(200, 70)
+        self.background_button = QPushButton('BackColor', self)
+        self.background_button.move(450, 50)
+        self.background_button.resize(100, 35)
         self.background_button.clicked.connect(self.settings)
         # Заполнение фигуры(возможность заполнения градиентом из 2х цветов)
-        self.fill_button = QPushButton('FILL', self)
-        self.fill_button.move(910, 50)
-        self.fill_button.resize(100, 70)
+        self.fill_button = QPushButton('Fill', self)
+        self.fill_button.move(560, 50)
+        self.fill_button.resize(100, 35)
         self.fill_button.clicked.connect(self.fill)
         self.fill_button.hide()
         # Кнопка сохранение всей красоты
-        self.save_button = QPushButton('SAVE', self)
-        self.save_button.move(1500, 50)
-        self.save_button.resize(100, 70)
+        self.save_button = QPushButton('Save', self)
+        self.save_button.move(890, 50)
+        self.save_button.resize(100, 35)
         self.save_button.clicked.connect(self.save)
         self.save_button.show()
         # Кнопки для изменения типа градиента
@@ -202,7 +208,7 @@ class Painter(QMainWindow):
         vbox.addWidget(form)
         self.setLayout(vbox)
 
-        form.setGeometry(500, 500, 500, 800)
+        form.setGeometry(600, 200, 250, 500)
         form.show()
 
     def get_line_thick(self):
@@ -457,7 +463,7 @@ class Painter(QMainWindow):
         """
         painter = QPainter(self)
 
-        painter.fillRect(380, 50, 140, 70, self.line_color)
+        painter.fillRect(230, 50, 100, 35, self.line_color)
         painter.fillRect(40, 150, self.width, self.height, self.color)
 
         for e in self.objects:

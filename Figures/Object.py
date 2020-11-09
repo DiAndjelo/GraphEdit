@@ -20,6 +20,14 @@ class Object(Figure):
 
         self.center = False
 
+    # ================================================== Movement ================================================== #
+
+    def move(self, x, y):
+        if self.center_x - 10 <= x <= self.center_x + 10 \
+                and self.center_y - 10 <= y <= self.center_y + 10\
+                or self.center:
+            self.transport(x, y)
+
     def stop_moving(self):
         self.center = False
 
@@ -32,12 +40,6 @@ class Object(Figure):
         else:
             self.deselect()
 
-    def move(self, x, y):
-        if self.center_x - 10 <= x <= self.center_x + 10 \
-                and self.center_y - 10 <= y <= self.center_y + 10\
-                or self.center:
-            self.transport(x, y)
-
     def transport(self, x, y):
         dx = x - self.center_x
         dy = y - self.center_y
@@ -49,11 +51,22 @@ class Object(Figure):
         for figure in self.figures:
             figure.transport_center(dx, dy)
 
+    # ============================================ Checkers and setters ============================================ #
+
     def in_bounds(self, x, y):
         for f in self.figures:
             if not f.in_bounds(x, y):
                 return False
         return True
+
+    def is_coord_on_figure(self, x, y):
+        self.set_central_coord()
+        if self.center_x - 10 <= x <= self.center_x + 10 \
+                and self.center_y - 10 <= y <= self.center_y + 10 or self.center:
+            return True
+        for e in self.figures:
+            if e.is_coord_on_figure(x, y):
+                return True
 
     def set_central_coord(self):
         x_min = None
@@ -85,6 +98,32 @@ class Object(Figure):
         self.center_x = (x_max + x_min) / 2
         self.center_y = (y_max + y_min) / 2
 
+    def set_start_coord(self, x1, y2):
+        pass
+
+    def set_end_coord(self, x2, y2):
+        pass
+
+    def set_thickness(self, th):
+        for e in self.figures:
+            e.set_thickness(th)
+
+    def set_color(self, col):
+        for e in self.figures:
+            e.set_color(col)
+
+    # =================================================== Actions ================================================== #
+
+    def select(self):
+        self.selected = True
+        for e in self.figures:
+            e.select()
+
+    def deselect(self):
+        self.selected = False
+        for e in self.figures:
+            e.deselect()
+
     def add_figure(self, figure):
         if figure is Object:
             for e in figure.figures:
@@ -92,26 +131,9 @@ class Object(Figure):
         else:
             self.figures.append(figure)
 
-    def is_coord_on_figure(self, x, y):
-        self.set_central_coord()
-        if self.center_x - 10 <= x <= self.center_x + 10 \
-                and self.center_y - 10 <= y <= self.center_y + 10 or self.center:
-            return True
-        for e in self.figures:
-            if e.is_coord_on_figure(x, y):
-                return True
-
-    def set_color(self, col):
-        for e in self.figures:
-            e.set_color(col)
-
     def fill(self, col):
         for e in self.figures:
             e.fill(col)
-
-    def set_thickness(self, th):
-        for e in self.figures:
-            e.set_thickness(th)
 
     def draw_selected(self, painter):
         self.set_central_coord()
@@ -129,19 +151,3 @@ class Object(Figure):
             e.selected = False
             e.draw(painter, col, th, x, y)
             e.selected = sel
-
-    def select(self):
-        self.selected = True
-        for e in self.figures:
-            e.select()
-
-    def deselect(self):
-        self.selected = False
-        for e in self.figures:
-            e.deselect()
-
-    def set_start_coord(self, x1, y2):
-        pass
-
-    def set_end_coord(self, x2, y2):
-        pass

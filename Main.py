@@ -22,6 +22,7 @@ class Form(QMainWindow):
         self.height_box.resize(200, 70)
         self.height_box.setMinimum(200)
         self.height_box.setMaximum(1300)
+        self.height_box.setValue(510)
         # Ширина
         self.lbl_width = QLabel("Enter width", self)
         self.lbl_width.move(20, 140)
@@ -31,6 +32,7 @@ class Form(QMainWindow):
         self.width_box.resize(200, 70)
         self.width_box.setMinimum(200)
         self.width_box.setMaximum(3000)
+        self.width_box.setValue(920)
         # Цвет
         self.button = QPushButton('COLOR', self)
         self.button.move(20, 400)
@@ -68,7 +70,7 @@ class Form(QMainWindow):
         # Закртытие первой формы и открытие окна редактора с передачей всех собранных параметров
         self.game = Game(self.width, self.height, self.color, self.name)
         self.setCentralWidget(self.game)
-        self.game.setGeometry(0, 0, 2000, 1500)
+        self.game.setGeometry(100, 100, 1400, 700)
         self.game.show()
 
 
@@ -79,7 +81,7 @@ class Game(QMainWindow):
     def __init__(self, w, h, col, name):
         super().__init__()
         self.painter = Painter(w, h, col, name)
-        self.painter.setGeometry(0, 0, 3200, 1600)
+        self.painter.setGeometry(300, 100, 1000, 700)
         self.painter.show()
 
 
@@ -90,7 +92,7 @@ class Start(QMainWindow):
     def __init__(self):
         super().__init__()
         self.form = Form()
-        self.form.setGeometry(500, 500, 500, 800)
+        self.form.setGeometry(600, 200, 250, 600)
         self.form.show()
 
 
